@@ -1,0 +1,123 @@
+/**
+ * Created by vladimir on 25.01.17.
+ */
+
+(function () {
+  var NUMBERS_OF_TILES = 20;
+  var TILES_PRES_ROW = 5;
+  var tiles = [];
+  var usedTiles = [];
+  var canTake = true;
+  var movesNumber = 0;
+  var tilesPairs = 0;
+  var tiles_images = [
+    '<%= asset_path 'title_1.png' %>',
+    '<%= asset_path 'title_2.png' %>',
+    '<%= asset_path 'title_3.png' %>',
+    '<%= asset_path 'title_4.png' %>',
+    '<%= asset_path 'title_5.png' %>',
+    '<%= asset_path 'title_6.png' %>',
+    '<%= asset_path 'title_7.png' %>',
+    '<%= asset_path 'title_8.png' %>',
+    '<%= asset_path 'title_9.png' %>',
+    '<%= asset_path 'title_10.png' %>'
+  ];
+
+
+  function startGame() {
+
+    tiles = [];
+    usedTiles = [];
+    canTake = true;
+    movesNumber = 0;
+    tilesPairs = 0;
+
+    var board = $('.board').empty();
+
+    for (var i = 0; i < NUMBERS_OF_TILES; i++) {
+      tiles.push(Math.floor(i / 2));
+    }
+
+    for (i = NUMBERS_OF_TILES - 1; i > 0; i--) {
+      var swap = Math.floor(Math.random() * i);
+      var tmp = tiles[i];
+      tiles[i] = tiles[swap];
+      tiles[swap] = tmp;
+    }
+
+    for (i = 0; i < NUMBERS_OF_TILES; i++) {
+      var tile = $('<div class="tiles"> </div>');
+      board.append(tile);
+
+      tile.data('cardType', tiles[i]);
+      tile.data('index', i);
+      tile.css({
+        left: 5 + (tile.width() + 5) * (i % TILES_PRES_ROW)
+      });
+      tile.css({
+        top: 5 + (tile.height() + 5) * (Math.floor(i / TILES_PRES_ROW))
+      });
+
+      tile.bind('click', function () {
+        clickOnTile($(this))
+      });
+    }
+    $('.moves').html('Liczba ruchów: ' + movesNumber);
+  }
+
+  function clickOnTile(element) {
+    if (canTake) {
+      //    jeżeli jeszcze nie został pobrany element lub jeżeli index tego eleemntu nie istnieje w pobranych
+      if (!usedTiles[0] || (usedTiles[0].data('index') != element.data('index'))) {
+        usedTiles.push(element);
+        element.css({'background-image': 'url(' + tiles_images[element.data('cardType')] + ')'})
+      }
+      if (usedTiles.length == 2) {
+        canTake = false;
+        if (usedTiles[0].data('cardType') == usedTiles[1].data('cardType')) {
+          window.setTimeout(function () {
+            removeTiles();
+          }, 200);
+        }
+        else {
+          window.setTimeout(function () {
+            resetTiles();
+          }, 200);
+        }
+        movesNumber++;
+
+        $('.moves').html('Liczba ruchow: ' + movesNumber)
+      }
+    }
+  }
+
+  function removeTiles() {
+    usedTiles[0].fadeOut(function () {
+      $(this).remove();
+    });
+    usedTiles[1].fadeOut(function () {
+      $(this).remove();
+
+      tilesPairs++;
+      if (tilesPairs >= NUMBERS_OF_TILES / 2) {
+        alert('Gra zakończona!');
+      }
+      canTake = true;
+      usedTiles = [];
+    });
+  }
+
+  function resetTiles() {
+    $(usedTiles[0]).css('background-image', 'url("/assets/title.png")');
+    $(usedTiles[1]).css('background-image', 'url("/assets/title.png")');
+    usedTiles = [];
+    canTake = true;
+
+  }
+
+  $(document).ready(function () {
+    $('.start_game').click(function () {
+      startGame();
+    });
+  })
+})();

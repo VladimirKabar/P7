@@ -1,0 +1,62 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@font-face {
+  font-family:'kreska-webfont';
+  src:url('font/kreska-webfont.eot');
+  src:local('˘'),
+  url('font/kreska-webfont.woff') format('woff'),
+  url('font/kreska-webfont.ttf') format('truetype'),
+  url('font/kreska-webfont.svg#webfontl3eKyN4a') format('svg');
+  font-weight:normal;
+  font-style:normal;
+}
+
+body {
+  padding: 10%;
+}
+
+.board {
+  margin: 30px auto;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+  width: 550px;
+  height: 444px;
+  border: 2px solid #ddd;
+}
+
+.tiles {
+  position: absolute;
+  cursor: pointer;
+  float: left;
+  width: 100px;
+  height: 100px;
+  background: #f6da17 url(title.png) center center no-repeat;
+  margin: 10px;
+}
+
+.tiles:hover {
+  background-color: #F7C11A;
+}
+
+.moves {
+  text-align: center;
+}
+
+button.button,
+input[type=button].button,
+input[type=submit].button {
+  padding: 0.8em 3em;
+  background: #EC185D;
+  color: #FFF;
+  border: 0;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: 0.5s background-color, 0.5s box-shadow;
+  cursor: pointer;
+  display: block;
+  font-size: 20px;
+  margin:30px auto;
+}
