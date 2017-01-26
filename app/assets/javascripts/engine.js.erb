@@ -89,6 +89,10 @@
         $('.moves').html('Liczba ruchow: ' + movesNumber)
       }
     }
+    if (movesNumber > 20) {
+      alert('Gra zakończona cieniasie! ');
+      canTake = false;
+    }
   }
 
   function removeTiles() {
