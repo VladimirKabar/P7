@@ -77,12 +77,12 @@
         if (usedTiles[0].data('cardType') == usedTiles[1].data('cardType')) {
           window.setTimeout(function () {
             removeTiles();
-          }, 200);
+          }, 500);
         }
         else {
           window.setTimeout(function () {
             resetTiles();
-          }, 200);
+          }, 500);
         }
         movesNumber++;
 
@@ -108,8 +108,8 @@
   }
 
   function resetTiles() {
-    usedTiles[0].css({'background-image': 'url(<%= asset_path 'title.png' %>)'});
-    usedTiles[1].css({'background-image': 'url(<%= asset_path 'title.png' %>)'});
+    $(usedTiles[0]).css('background-image', 'url("/assets/title.png")');
+    $(usedTiles[1]).css('background-image', 'url("/assets/title.png")');
     usedTiles = [];
     canTake = true;
 
