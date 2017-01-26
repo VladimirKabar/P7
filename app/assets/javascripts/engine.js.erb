@@ -8,7 +8,7 @@
   var tiles = [];
   var usedTiles = [];
   var canTake = true;
-  var movesNumber = 0;
+  var movesNumber = 20;
   var tilesPairs = 0;
   var tiles_images = [
     '<%= asset_path 'title_1.png' %>',
@@ -29,7 +29,7 @@
     tiles = [];
     usedTiles = [];
     canTake = true;
-    movesNumber = 0;
+    movesNumber = 20;
     tilesPairs = 0;
 
     var board = $('.board').empty();
@@ -62,7 +62,7 @@
         clickOnTile($(this))
       });
     }
-    $('.moves').html('Liczba ruchów: ' + movesNumber);
+    $('.moves').html('Dostępna liczba ruchów: ' + movesNumber);
   }
 
   function clickOnTile(element) {
@@ -84,12 +84,12 @@
             resetTiles();
           }, 500);
         }
-        movesNumber++;
+        movesNumber--;
 
-        $('.moves').html('Liczba ruchow: ' + movesNumber)
+        $('.moves').html('Zostało ruchów : ' + movesNumber)
       }
     }
-    if (movesNumber > 20) {
+    if (movesNumber < 1) {
       alert('Gra zakończona cieniasie! ');
       canTake = false;
     }
